@@ -12489,9 +12489,25 @@
 	'use strict';
 
 	module.exports = {
+		data: function data() {
+			return {
+				pid: '',
+				posts: ''
+			};
+		},
 		components: {
 			'mySection': __webpack_require__(10),
 			'myPagination': __webpack_require__(15)
+		},
+		route: {
+			data: function data(transition) {
+				var tmp_id = transition.to.params.id ? transition.to.params.id : 1;
+				$.get(ghost.url.api('posts', { fields: 'title,image,slug,meta_description', limit: '5', page: tmp_id })).done(function (data) {
+					transition.next({ pid: parseInt(tmp_id, 10), posts: data.posts });
+				}).fail(function (err) {
+					console.log(err);
+				});
+			}
 		}
 	};
 
@@ -12565,21 +12581,7 @@
 	'use strict';
 
 	module.exports = {
-		data: function data() {
-			return {
-				posts: '',
-				pid: ''
-			};
-		},
-		ready: function ready() {
-			var that = this;
-			that.pid = that.$route.params.id ? this.$route.params.id : 1;
-			$.get(ghost.url.api('posts', { fields: 'title,image,slug,meta_description', limit: '3', page: pid })).done(function (data) {
-				that.posts = data.posts;
-			}).fail(function (err) {
-				console.log(err);
-			});
-		}
+		props: ['posts']
 	};
 
 /***/ },
@@ -12660,33 +12662,26 @@
 	module.exports = {
 		data: function data() {
 			return {
-				pages: pages,
-				pid: ''
+				pages: pages
 			};
 		},
-		ready: function ready() {
-			this.pid = this.$route.params.id ? this.$route.params.id : 1;
-		},
+		props: ['pid'],
 		methods: {
 			forward: function forward(e) {
-				var post_id = this.pid;
 				route.go({
 					name: 'page',
 					params: {
-						id: post_id - 1
+						id: this.pid - 1
 					}
 				});
-				this.pid = post_id - 1;
 			},
 			backward: function backward(e) {
-				var post_id = this.pid;
 				route.go({
 					name: 'page',
 					params: {
-						id: post_id + 1
+						id: this.pid + 1
 					}
 				});
-				this.pid = post_id + 1;
 			}
 		},
 		computed: {
@@ -12717,7 +12712,7 @@
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n\t<my-section></my-section>\n\t<my-pagination></my-pagination>\n</div>\n";
+	module.exports = "\n<div class=\"container\">\n\t<my-section :posts='posts'></my-section>\n\t<my-pagination :pid='pid'></my-pagination>\n</div>\n";
 
 /***/ },
 /* 21 */

@@ -22,32 +22,25 @@
 		data:function(){
 			return {
 				pages:pages,
-				pid:''
 			}
 		},
-		ready:function(){
-			this.pid = this.$route.params.id?this.$route.params.id:1;
-		},
+		props:['pid'],
 		methods:{
 			forward:function(e){
-				var post_id = this.pid;
 				route.go({
 					name:'page',
 					params:{
-						id:post_id-1
+						id:this.pid-1
 					}
 				});
-				this.pid= post_id-1;
 			},
 			backward:function(e){
-				var post_id = this.pid;
 				route.go({
 					name:'page',
 					params:{
-						id:post_id+1
+						id:this.pid+1
 					}
 				});
-				this.pid=post_id+1;
 			}
 		},
 		computed:{
