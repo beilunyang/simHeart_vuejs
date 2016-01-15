@@ -55,19 +55,19 @@
 			name:'index',
 			component:__webpack_require__(4)
 		},
-		'/category/:slug':{
-			name:'category',
+		'/page/:id':{
+			name:'page',
 			component:__webpack_require__(4)
 		},
 		'/post/:slug':{
 			name:'post',
-			component:__webpack_require__(26)
+			component:__webpack_require__(21)
 		},
 		'*':{
-			component:__webpack_require__(31)
+			component:__webpack_require__(26)
 		}
 	});
-
+	window.route = router;
 	var App = Vue.extend({});
 	router.start(App,'#app');
 
@@ -12148,7 +12148,7 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(5)
 	__vue_script__ = __webpack_require__(9)
-	__vue_template__ = __webpack_require__(25)
+	__vue_template__ = __webpack_require__(20)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -12199,7 +12199,7 @@
 
 
 	// module
-	exports.push([module.id, "\n.container{\n\tpadding-bottom:100px;\n}\n", ""]);
+	exports.push([module.id, "\n.container{\n\tpadding-bottom:100px;\n\tmin-height: 200px;\n}\n", ""]);
 
 	// exports
 
@@ -12491,8 +12491,7 @@
 	module.exports = {
 		components: {
 			'mySection': __webpack_require__(10),
-			'myHeader': __webpack_require__(15),
-			'myFooter': __webpack_require__(20)
+			'myPagination': __webpack_require__(15)
 		}
 	};
 
@@ -12554,7 +12553,7 @@
 
 
 	// module
-	exports.push([module.id, "\nsection{\n\tpadding:40px 18% 0;\n}\nsection h2{\n\ttext-align:center;\n\tpadding:0 20px;\n}\n.division{\n\ttext-align: center;\n\tborder-bottom:1px dotted #ccc;\n\tpadding-bottom:20px;\n}\n.cover img{\n\tborder-radius: .5em;\n\tmax-width:100%;\n\tmargin:0 auto;\n\tmargin-bottom:20px;\n}\n", ""]);
+	exports.push([module.id, "\nsection{\n\tpadding:40px 18% 0;\n}\nsection h2{\n\ttext-align:center;\n\tpadding:0 20px;\n}\nsection a,section article{\n\tword-wrap: break-word;\n\tword-break: break-all;\n}\n.division{\n\ttext-align: center;\n\tborder-bottom:1px dotted #ccc;\n\tpadding-bottom:20px;\n}\n.cover img{\n\tborder-radius: .5em;\n\tmax-width:100%;\n\tmargin:0 auto;\n\tmargin-bottom:20px;\n}\n", ""]);
 
 	// exports
 
@@ -12568,12 +12567,14 @@
 	module.exports = {
 		data: function data() {
 			return {
-				posts: ''
+				posts: '',
+				pid: ''
 			};
 		},
 		ready: function ready() {
 			var that = this;
-			$.get(ghost.url.api('posts', { fields: 'title,image,slug,meta_description', limit: '3' })).done(function (data) {
+			that.pid = that.$route.params.id ? this.$route.params.id : 1;
+			$.get(ghost.url.api('posts', { fields: 'title,image,slug,meta_description', limit: '3', page: pid })).done(function (data) {
 				that.posts = data.posts;
 			}).fail(function (err) {
 				console.log(err);
@@ -12602,7 +12603,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "D:\\Ghost-0.7.4-zh-full\\content\\themes\\simHeart_vuejs\\src\\components\\header.vue"
+	  var id = "D:\\Ghost-0.7.4-zh-full\\content\\themes\\simHeart_vuejs\\src\\components\\pagination.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -12626,8 +12627,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-55540eca&file=header.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./header.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-55540eca&file=header.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./header.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-ac2dd7b0&file=pagination.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./pagination.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-ac2dd7b0&file=pagination.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./pagination.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -12645,7 +12646,7 @@
 
 
 	// module
-	exports.push([module.id, "\nheader{\n\ttext-align: center;\n\tpadding-top:80px;\n}\n.avatar{\n\theight:150px;\n\twidth:150px;\n\tmargin:0 auto;\n\tborder-radius:50%;\n}\n.navbar\tul{\n\tfont-size:0;\n}\n.navbar li{\n\tfont-size:18px;\n\tmin-width:80px;\n\tdisplay:inline-block;\n\ttext-align: center;\n\tpadding-bottom:1px;\n\tmargin-bottom:5px;\n}\n.navbar li:hover{\n\tborder-bottom:1px dotted;\n\tpadding-bottom:0;\n}\n", ""]);
+	exports.push([module.id, "\n\t.pagination{\n\t\ttext-align:center;\n    \tpadding:15px 20% 0;\n\t}\n\t.prev{\n\t\tfloat:left;\n\t}\n\t.next{\n\t\tfloat:right;\n\t}\n", ""]);
 
 	// exports
 
@@ -12659,124 +12660,73 @@
 	module.exports = {
 		data: function data() {
 			return {
-				blog_name: '悖论の小黑屋',
-				blog_avatar: 'https://dn-bitibiti.qbox.me/image/a/09/dbac352b079af7f8edafd7d978afe.jpg',
-				blog_tags: ''
+				pages: pages,
+				pid: ''
 			};
 		},
 		ready: function ready() {
-			var that = this;
-			$.get(ghost.url.api('tags', { fields: 'name,slug' })).done(function (data) {
-				that.blog_tags = data.tags;
-			}).fail(function (err) {
-				console.log(err);
-			});
+			this.pid = this.$route.params.id ? this.$route.params.id : 1;
+		},
+		methods: {
+			forward: function forward(e) {
+				var post_id = this.pid;
+				route.go({
+					name: 'page',
+					params: {
+						id: post_id - 1
+					}
+				});
+				this.pid = post_id - 1;
+			},
+			backward: function backward(e) {
+				var post_id = this.pid;
+				route.go({
+					name: 'page',
+					params: {
+						id: post_id + 1
+					}
+				});
+				this.pid = post_id + 1;
+			}
+		},
+		computed: {
+			canNext: function canNext() {
+				if (this.pid < this.pages) {
+					return true;
+				} else {
+					return false;
+				}
+			},
+			canPrev: function canPrev() {
+				if (this.pid > 1) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 		}
-
 	};
 
 /***/ },
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<header>\n\t<div class=\"avatar\" :style=\"'background:url('+blog_avatar+') center center no-repeat;background-size:cover;'\"></div>\n\t<p>--{{ blog_name }}--</p>\n\t<nav class=\"navbar\">\n\t\t<ul>\n\t\t\t<li><a href=\"/\">首页</a></li>\n\t\t\t<template v-for=\"tag in blog_tags\">\n\t\t\t\t<li><a :href=\"'#!/category/' + tag.slug\">{{ tag.name }}</a></li>\n\t\t\t</template>\n\t\t</ul>\n\t</nav>\n</header>\n";
+	module.exports = "\n<nav class=\"pagination\">\n\t<a class=\"prev\" v-if=\"canPrev\" href=\"#\" @click.stop.prevent=\"forward\">上一页</a>\n\t<a class=\"next\" v-if=\"canNext\" href=\"#\" @click.stop.prevent=\"backward\">下一页</a>\n</nav>\n";
 
 /***/ },
 /* 20 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var __vue_script__, __vue_template__
-	__webpack_require__(21)
-	__vue_script__ = __webpack_require__(23)
-	__vue_template__ = __webpack_require__(24)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "D:\\Ghost-0.7.4-zh-full\\content\\themes\\simHeart_vuejs\\src\\components\\footer.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+	module.exports = "\n<div class=\"container\">\n\t<my-section></my-section>\n\t<my-pagination></my-pagination>\n</div>\n";
 
 /***/ },
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(22);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-97b8d6ae&file=footer.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./footer.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-97b8d6ae&file=footer.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./footer.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "\n\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	module.exports = {
-		data: function data() {
-			return {};
-		}
-
-	};
-
-/***/ },
-/* 24 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<footer>\n\t<template v-if=\"friends\">\n\t\t<div class=\"jiyou\">\n\t\t\t<ul>\n\t\t\t\t<li>友情链接:</li>\n\t\t\t\t<template v-for=\"friend in friends\">\n\t\t\t\t\t<li>\n\t\t\t\t\t\t<a :href=\"friend.url\">{{ friend.name }}</a>\n\t\t\t\t\t</li>\n\t\t\t\t</template>\n\t\t\t</ul>\n\t  \t</div>\n\t</template>\n</footer>\n";
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<my-header></my-header>\n<div class=\"container\">\n\t<my-section></my-section>\n</div>\n<my-footer></my-footer>\n";
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __vue_script__, __vue_template__
-	__webpack_require__(27)
-	__vue_script__ = __webpack_require__(29)
-	__vue_template__ = __webpack_require__(30)
+	__webpack_require__(22)
+	__vue_script__ = __webpack_require__(24)
+	__vue_template__ = __webpack_require__(25)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -12793,13 +12743,13 @@
 	})()}
 
 /***/ },
-/* 27 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(28);
+	var content = __webpack_require__(23);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -12819,7 +12769,7 @@
 	}
 
 /***/ },
-/* 28 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -12833,8 +12783,8 @@
 
 
 /***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
+/* 24 */
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -12851,26 +12801,21 @@
 			}).fail(function (err) {
 				console.log(err);
 			});
-		},
-		components: {
-			'mySection': __webpack_require__(10),
-			'myHeader': __webpack_require__(15),
-			'myFooter': __webpack_require__(20)
 		}
 	};
 
 /***/ },
-/* 30 */
+/* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<my-header></my-header>\n<div class=\"post\">\n\t<h2 class=\"post-title\">{{post_info.title}}</h2>\n\t<div class=\"mardown-content\">\n\t\t{{{post_info.html}}}\n\t</div>\n</div>\n<my-footer></my-footer>\n";
+	module.exports = "\n<div class=\"post\">\n\t<h2 class=\"post-title\">{{post_info.title}}</h2>\n\t<div class=\"mardown-content\">\n\t\t{{{post_info.html}}}\n\t</div>\n</div>\n";
 
 /***/ },
-/* 31 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_template__ = __webpack_require__(32)
+	__vue_template__ = __webpack_require__(27)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -12887,7 +12832,7 @@
 	})()}
 
 /***/ },
-/* 32 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div>\n\t<p>404 not found page!5秒后将自动跳转到首页O(∩_∩)O~</p>\n</div>\n";

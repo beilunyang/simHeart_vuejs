@@ -6,6 +6,10 @@
 		text-align:center;
 		padding:0 20px;
 	}
+	section a,section article{
+		word-wrap: break-word;
+		word-break: break-all;
+	}
 	.division{
 		text-align: center;
 		border-bottom:1px dotted #ccc;
@@ -41,12 +45,14 @@
 	module.exports = {
 		data:function(){
 			return{
-				posts:''
+				posts:'',
+				pid:''
 			}
 		},
 		ready:function(){
 			var that = this;
-			$.get(ghost.url.api('posts',{fields:'title,image,slug,meta_description',limit:'3'}))
+			that.pid = that.$route.params.id?this.$route.params.id:1;
+			$.get(ghost.url.api('posts',{fields:'title,image,slug,meta_description',limit:'3',page:pid}))
 			.done(function(data){
 				that.posts = data.posts;
 			})
@@ -56,3 +62,6 @@
 		}
 	}
 </script>
+<!-- ready 无法多次执行，无法再次获取到文章 
+	 直接改变hash指示,有错误。（如：从第二页之前从地址栏变到第一页时,上一页仍旧存在）
+-->

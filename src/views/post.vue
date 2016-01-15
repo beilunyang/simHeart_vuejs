@@ -10,14 +10,12 @@
 </style>
 
 <template>
-	<my-header></my-header>
 	<div class="post">
 		<h2 class="post-title">{{post_info.title}}</h2>
 		<div class="mardown-content">
 			{{{post_info.html}}}
 		</div>
 	</div>
-	<my-footer></my-footer>
 </template>
 
 <script>
@@ -36,11 +34,6 @@
 			.fail(function(err){
 				console.log(err);
 			});
-		},
-		components:{
-			'mySection':require('../components/section.vue'),
-			'myHeader':require('../components/header.vue'),
-			'myFooter':require('../components/footer.vue')
 		}
 	}
 </script>

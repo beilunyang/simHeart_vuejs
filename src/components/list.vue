@@ -1,9 +1,4 @@
-<style>
-	.container{
-		padding-bottom:100px;
-		min-height: 200px;
-	}
-</style>
+
 <template>
 	<div class="container">
 		<my-section></my-section>

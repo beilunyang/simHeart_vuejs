@@ -23,14 +23,65 @@
 				text-decoration:none;
 				color:#242424;
 			}
+			header{
+				text-align: center;
+				padding-top:80px;
+			}
+			.avatar{
+				height:150px;
+				width:150px;
+				margin:0 auto;
+				-webkit-border-radius:50%;
+				-moz-border-radius:50%;
+				border-radius:50%;
+			}
+			.navbar	ul{
+				font-size:0;
+			}
+			.navbar li{
+				font-size:18px;
+				min-width:80px;
+				display:inline-block;
+				text-align: center;
+				padding-bottom:1px;
+				margin-bottom:5px;
+			}
+			.navbar li:hover{
+				border-bottom:1px dotted;
+				padding-bottom:0;
+			}
+			footer{
+				padding:0 20%;
+				text-align:center;
+			}
+			.copyright{
+				font-size:14px;
+			}
     	</style>
     	{{ghost_head}}
 	</head>
 	<body>
 		<div id="app">
+			<header>
+				<div class="avatar" style="background:url('{{@blog.logo}}') center center no-repeat;background-size:cover;"></div>
+				<p>--悖论の小黑屋--</p>
+				<nav class="navbar">
+					<ul>
+						{{#foreach @blog.navigation}}
+						<li><a href="{{url}}">{{ label }}</a></li>
+						{{/foreach}}
+					</ul>
+				</nav>
+			</header>
 			<router-view></router-view>
+			<footer>
+				<p class="copyright">Copyright © 2015 <a href="http://bitibiti.com">beilun</a> All Rights Reserved</p> 
+			</footer>
 		</div>
 		<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+		<script>
+			var pages = {{pagination.pages}};
+		</script>
 		<script src="static/bulid.js"></script>
 		{{ghost_foot}}
 	</body>

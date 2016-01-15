@@ -9,8 +9,8 @@ router.map({
 		name:'index',
 		component:require('./views/index.vue')
 	},
-	'/category/:slug':{
-		name:'category',
+	'/page/:id':{
+		name:'page',
 		component:require('./views/index.vue')
 	},
 	'/post/:slug':{
@@ -21,6 +21,6 @@ router.map({
 		component:require('./views/404.vue')
 	}
 });
-
+window.route = router;
 var App = Vue.extend({});
 router.start(App,'#app');
