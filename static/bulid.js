@@ -12199,7 +12199,7 @@
 
 
 	// module
-	exports.push([module.id, "\n.container{\n\tpadding-bottom:100px;\n\tmin-height: 200px;\n}\n", ""]);
+	exports.push([module.id, "\n.container{\n\tpadding-bottom:100px;\n}\n.sections{\n\tmin-height: 400px;\n}\n", ""]);
 
 	// exports
 
@@ -12492,18 +12492,20 @@
 		data: function data() {
 			return {
 				pid: '',
-				posts: ''
+				posts: '',
+				showload: true
 			};
 		},
 		components: {
 			'mySection': __webpack_require__(10),
-			'myPagination': __webpack_require__(15)
+			'myPagination': __webpack_require__(15),
+			'loading': __webpack_require__(28)
 		},
 		route: {
 			data: function data(transition) {
 				var tmp_id = transition.to.params.id ? transition.to.params.id : 1;
 				$.get(ghost.url.api('posts', { fields: 'title,image,slug,meta_description', limit: '5', page: tmp_id })).done(function (data) {
-					transition.next({ pid: parseInt(tmp_id, 10), posts: data.posts });
+					transition.next({ pid: parseInt(tmp_id, 10), posts: data.posts, showload: false });
 				}).fail(function (err) {
 					console.log(err);
 				});
@@ -12712,7 +12714,7 @@
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n\t<my-section :posts='posts'></my-section>\n\t<my-pagination :pid='pid'></my-pagination>\n</div>\n";
+	module.exports = "\n<div class=\"container\">\n\t<loading :showload='showload'></loading>\n\t<div class=\"sections\"><my-section :posts='posts'></my-section></div>\n\t<my-pagination :pid='pid'></my-pagination>\n</div>\n";
 
 /***/ },
 /* 21 */
@@ -12772,30 +12774,35 @@
 
 
 	// module
-	exports.push([module.id, "\n.post{\n\twidth:60%;\n\tmargin:0 auto;\n\tmargin-top:35px;\n}\n.post-title{\n\ttext-align:center;\n}\n", ""]);
+	exports.push([module.id, "\n.post{\n\twidth:60%;\n\tmargin:0 auto;\n\tmargin-top:35px;\n\tmin-height: 400px;\n}\n.post-title{\n\ttext-align:center;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
 /* 24 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
 		data: function data() {
 			return {
-				post_info: ''
+				post_info: '',
+				showload: true
 			};
 		},
 		ready: function ready() {
 			var that = this;
 			$.get(ghost.url.api('posts/slug/' + that.$route.params.slug), { fields: 'title,html,author,updated_at' }).done(function (data) {
+				that.showload = false;
 				that.post_info = data.posts[0];
 			}).fail(function (err) {
 				console.log(err);
 			});
+		},
+		components: {
+			'loading': __webpack_require__(28)
 		}
 	};
 
@@ -12803,7 +12810,7 @@
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"post\">\n\t<h2 class=\"post-title\">{{post_info.title}}</h2>\n\t<div class=\"mardown-content\">\n\t\t{{{post_info.html}}}\n\t</div>\n</div>\n";
+	module.exports = "\n<div class=\"post\">\n\t<loading :showload='showload'></loading>\n\t<h2 class=\"post-title\">{{post_info.title}}</h2>\n\t<div class=\"markdown-body\">\n\t\t{{{post_info.html}}}\n\t</div>\n</div>\n";
 
 /***/ },
 /* 26 */
@@ -12831,6 +12838,85 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<div>\n\t<p>404 not found page!5秒后将自动跳转到首页O(∩_∩)O~</p>\n</div>\n";
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(29)
+	__vue_script__ = __webpack_require__(31)
+	__vue_template__ = __webpack_require__(32)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "D:\\Ghost-0.7.4-zh-full\\content\\themes\\simHeart_vuejs\\src\\components\\loading.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(30);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-f8bb3ac4&file=loading.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./loading.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-f8bb3ac4&file=loading.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./loading.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n@-webkit-keyframes loading{\n\t0%{\n\t\topacity:1;\n\t\twidth:0;\n\t\theight:0;\n\t}\n\t70%{\n\t\topacity: .5;\n\t\twidth:40px;\n\t\theight:40px;\n\t}\n\t100%{\n\t\topacity:0;\n\t\twidth:70px;\n\t\theight:70px;\n\t}\n}\n@keyframes loading{\n\t0%{\n\t\topacity:1;\n\t\twidth:0;\n\t\theight:0;\n\t}\n\t70%{\n\t\topacity: .5;\n\t\twidth:40px;\n\t\theight:40px;\n\t}\n\t100%{\n\t\topacity:0;\n\t\twidth:70px;\n\t\theight:70px;\n\t}\n}\n.loading{\n\tposition:absolute;\n\tleft:50%;\n\ttop:70%;\n\t-webkit-transform: translateX(-50%);\n\ttransform: translateX(-50%);\n\tborder-radius: 50%;\n\tbackground-color: #ccc;\n\tanimation:loading .8s infinite;\n\t-webkit-animation:loading .8s infinite;\n\t-moz-animation:loading .8s infinite;\n\t-o-animation:loading .8s infinite;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = {
+		props: ['showload']
+	};
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"loading\" v-if=\"showload\"></div>\n";
 
 /***/ }
 /******/ ]);
