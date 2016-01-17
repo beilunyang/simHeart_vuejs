@@ -27,7 +27,7 @@
 <template>
 	<template v-for="post in posts">
 		<section>
-			<h2><a v-link="{name:'post',params:{slug:post.slug}}">{{ post.title }}</a></h2>
+			<h2><a v-link="{name:'post',params:{id:post.id}}">{{ post.title }}</a></h2>
 			<template v-if="post.image">
 				<div class="cover">
 					<img :src="post.image">
@@ -36,7 +36,7 @@
 			<article>
 				{{ post.meta_description }}
 			</article>
-			<p class="division"><a v-link="{name:'post',params:{slug:post.slug}}">--阅读全文--</a></p>
+			<p class="division"><a v-link="{name:'post',params:{id:post.id}}">--阅读全文--</a></p>
 		</section>
 	</template>
 </template>

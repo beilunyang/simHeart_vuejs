@@ -31,7 +31,7 @@
 		route:{
 			data:function(transition){
 				 var tmp_id = transition.to.params.id?transition.to.params.id:1;
-				 $.get(ghost.url.api('posts',{fields:'title,image,slug,meta_description',limit:'5',page:tmp_id}))
+				 $.get(ghost.url.api('posts',{fields:'title,image,id,meta_description',limit:'5',page:tmp_id}))
 					.done(function(data){
 						transition.next({pid:parseInt(tmp_id,10),posts:data.posts,showload:false});
 					})

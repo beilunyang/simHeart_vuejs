@@ -5,7 +5,7 @@ module.exports = {
 	entry:'./src/entry.js',
 	output:{
 		path:'./static',
-		filename:'bulid.js'
+		filename:'b.js'
 	},
 	module:{
 		loaders:[
@@ -18,5 +18,17 @@ module.exports = {
 				loader:'style-loader!css-loader'
 			}
 		]
-	}
+	},
+	plugins:[
+		new webpack.DefinePlugin({
+			'process.env':{
+				NODE_ENV:'"production"'
+			}
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+	      compress: {
+	        warnings: false
+	      }
+		})
+	]
 }

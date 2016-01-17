@@ -4,6 +4,31 @@ Vue.use(Router);
 
 var router = new Router();
 
+Vue.directive('show-comment',{
+	bind:function(){
+		(function() { 
+		var d = document, s = d.createElement('script');
+		s.id = 'disqus';
+		s.src = '//bitibiti.disqus.com/embed.js';
+
+		s.setAttribute('data-timestamp', +new Date());
+		console.log(d.head);
+		console.log(d.body);
+		(d.head || d.body).appendChild(s);
+		})();
+	},
+	update:function(newValue,oldValue){
+		var disqus_config = function () {
+		this.page.url = newValue.url;
+		this.page.identifier = newValue.id;
+		} 
+	},
+	unbind:function(){
+		var dis = document.getElementById('disqus');
+		dis.parentNode.removeChild(dis);
+	}
+});
+
 router.map({
 	'/':{
 		name:'index',
@@ -13,7 +38,7 @@ router.map({
 		name:'page',
 		component:require('./views/index.vue')
 	},
-	'/post/:slug':{
+	'/post/:id':{
 		name:'post',
 		component:require('./views/post.vue')
 	},
