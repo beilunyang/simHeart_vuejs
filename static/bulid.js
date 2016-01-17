@@ -13257,7 +13257,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_template__ = __webpack_require__(38)
+	__webpack_require__(38)
+	__vue_script__ = __webpack_require__(40)
+	__vue_template__ = __webpack_require__(41)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -13275,9 +13277,69 @@
 
 /***/ },
 /* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(39);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-1cba445c&file=404.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./404.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-1cba445c&file=404.vue!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./404.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\t.notfind{\n\t   padding: 50px 20%;\n       text-align: center;\n\t}\n\t.notfind a{\n\t\tfont-size:15px;\n\t\tcolor:blue;\n\t\ttext-decoration:underline;\n\t}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 40 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n\t<p>404 not found page!5秒后将自动跳转到首页O(∩_∩)O~</p>\n</div>\n";
+	'use strict';
+
+	module.exports = {
+		ready: function ready() {
+			var c = document.getElementById('c');
+			var t = 5;
+			var count = setInterval(function () {
+				if (t == 0) {
+					clearInterval(count);
+					route.go('/');
+				}
+				c.innerText = --t;
+			}, 1000);
+		}
+	};
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"notfind\">\n\t<p>404 not found page!<br>\n\t\t<span id=\"c\">5</span>秒后将自动跳转到首页O(∩_∩)O~\n\t</p>\n\t<a v-link=\"'/'\">直接跳转</a>\n</div>\n";
 
 /***/ }
 /******/ ]);
