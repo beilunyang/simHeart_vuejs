@@ -15,17 +15,11 @@
 			<header>
 				<div class="avatar" style="background:url('{{@blog.logo}}') center center no-repeat;background-size:cover;"></div>
 				<p>--悖论の小黑屋--</p>
-				<nav class="navbar">
-					<ul>
-						{{#foreach @blog.navigation}}
-						<li><a href="{{url}}">{{ label }}</a></li>
-						{{/foreach}}
-					</ul>
-				</nav>
+				{{navigation}}
 			</header>
 			<router-view></router-view>
 			<footer>
-				<p class="copyright">Copyright © 2015 <a href="http://bitibiti.com">beilun</a> All Rights Reserved</p> 
+				<p class="copyright">Copyright © 2015 <a href="https://bitibiti.com">beilun</a> All Rights Reserved</p> 
 			</footer>
 		</div>
 		<script>

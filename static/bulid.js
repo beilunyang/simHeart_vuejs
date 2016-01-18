@@ -58,8 +58,7 @@
 			s.src = '//bitibiti.disqus.com/embed.js';
 
 			s.setAttribute('data-timestamp', +new Date());
-			console.log(d.head);
-			console.log(d.body);
+
 			(d.head || d.body).appendChild(s);
 			})();
 		},
