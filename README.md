@@ -1,5 +1,7 @@
 # simHeart_vuejs
-一个基于vuejs的ghostblog主题
+一个基于vuejs的ghostblog主题 
+
+[demo](https://bitibiti.com)
 ###使用方法
 * 将simHeart放入ghost themes文件夹中
 * 开启ghostAPI
